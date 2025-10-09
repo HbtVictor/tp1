@@ -1,17 +1,17 @@
 // src/app/pages/articles/page.tsx
 // 📄 Page qui affiche la liste de tous les articles
 
-'use client'; // 🔴 IMPORTANT : Nécessaire pour l'interactivité (useState, hooks, etc.)
+'use client'; // IMPORTANT : Nécessaire pour l'interactivité (useState, hooks, etc.)
 
 import { useArticleStore } from '../../store/articleStore';
 import Link from 'next/link';
 
 export default function ArticlesPage() {
-    // 🎣 Hook Zustand : récupère les articles du store
+    // Hook Zustand : récupère les articles du store
     const articles = useArticleStore((state) => state.articles);
     const remove = useArticleStore(s => s.remove);
 
-    // 🎯 Explication :
+    // Explication :
     // useArticleStore((state) => state.articles)
     // = "Je veux uniquement la partie 'articles' du store"
     // Le composant se re-render automatiquement quand 'articles' change !
@@ -32,7 +32,7 @@ export default function ArticlesPage() {
                         </p>
                     </div>
 
-                    {/* 🔗 Bouton pour créer un article */}
+                    {/*  Bouton pour créer un article */}
                     <Link
                         href="/pages/articles/create"
                         className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition font-medium"
@@ -56,15 +56,15 @@ export default function ArticlesPage() {
                         </Link>
                     </div>
                 ) : (
-                    // ✅ Affichage des articles
+                    // Affichage des articles
                     <div className="space-y-4">
                         {articles.map((article) => (
-                            // 🗂️ Carte pour chaque article
+                            // Carte pour chaque article
                             <div
                                 key={article.id}
                                 className="bg-white rounded-lg shadow hover:shadow-md transition p-6"
                             >
-                                {/* 📌 key={article.id} est OBLIGATOIRE pour que React
+                                {/* key={article.id} est OBLIGATOIRE pour que React
                      identifie chaque élément de la liste */}
 
                                 <div className="flex justify-between items-start">
@@ -89,7 +89,7 @@ export default function ArticlesPage() {
                                         </div>
                                     </div>
 
-                                    {/* 🎛️ Boutons d'actions */}
+                                    {/* Boutons d'actions */}
                                     <div className="flex gap-2 ml-4">
                                         <Link
                                             href={`/pages/articles/${article.id}`}
@@ -100,7 +100,7 @@ export default function ArticlesPage() {
 
                                         <button
                                             onClick={() => {
-                                                // ⚠️ Confirmation avant suppression
+                                                // Confirmation avant suppression
                                                 if (confirm(`Supprimer "${article.title}" ?`)) {
                                                     remove(article.id);
                                                 }
