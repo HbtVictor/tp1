@@ -8,6 +8,7 @@ export const mockUsers: User[] = [
     email: "admin@example.com",
     password: "admin123",
     sujet: "all",
+    pp: "/img/users/admin_pp.png",
   },
   {
     id: "2",
@@ -15,6 +16,7 @@ export const mockUsers: User[] = [
     email: "alice@example.com",
     password: "password",
     sujet: "quotidien",
+    pp: "/img/users/alice_pp.png",
   },
 ];
 
