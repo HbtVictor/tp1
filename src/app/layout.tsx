@@ -1,11 +1,11 @@
 import "./globals.css";
 import { Navbar } from "@/app/components/layout/Navbar";
 import { Footer } from "@/app/components/layout/Footer";
+import { ThemeProvider } from "@/app/context/ThemeContext";
 
 export const metadata = {
   title: "TP1 - Gestion de Contenu",
-  description:
-    "Application de gestion de contenu avec Next.js, Zustand et Tailwind",
+  description: "Application de gestion de contenu avec Next.js, Zustand et Tailwind",
 };
 
 export default function RootLayout({
@@ -14,18 +14,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr">
-      <body className="flex flex-col min-h-screen bg-gray-50 text-gray-900">
-        {/* Navbar fixée en haut */}
-        <Navbar />
-
-        {/* Contenu principal prend tout l’espace restant */}
-        <main className="flex-grow pt-20 px-4">
-          {children}
-        </main>
-
-        {/* Footer toujours en bas */}
-        <Footer />
+    <html lang="fr" className="h-full">
+      <body className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+        <ThemeProvider>
+          <Navbar />
+          <main className="flex-grow">
+            {children}
+          </main>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

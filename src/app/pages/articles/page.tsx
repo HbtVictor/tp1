@@ -26,17 +26,23 @@ export default function ArticlesPage() {
         let list = byTitle
             ? articles.filter(a => a.title.toLowerCase().includes(byTitle))
             : articles.slice();
+        
+        // ✅ Filtre "Mes articles" - AJOUTÉ
+        if (mineOnly && currentUserId) {
+            list = list.filter(a => a.authorId === currentUserId);
+        }
+        
         list.sort((a, b) => {
             const da = +new Date(a.createdAt);
             const db = +new Date(b.createdAt);
             return order === 'desc' ? db - da : da - db;
         });
         return list;
-    }, [articles, q, order]);
+    }, [articles, q, order, mineOnly, currentUserId]);
 
     return (
-        <div className="min-h-screen bg-gray-50 py-8 px-4">
-            <div className="max-w-4xl mx-auto">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8 px-4 transition-colors">
+            <div className="max-w-6xl mx-auto">
                 <ArticlesHeader count={filtered.length} />
                 <ArticlesFilters
                     query={query}
@@ -46,7 +52,6 @@ export default function ArticlesPage() {
                     mineOnly={mineOnly}
                     onMineOnly={setMineOnly}
                 />
-
 
                 {filtered.length === 0 ? (
                     <EmptyArticles />
@@ -61,7 +66,9 @@ export default function ArticlesPage() {
                                 createdAt={a.createdAt}
                                 authorName={userById[a.authorId] ?? 'Inconnu'}
                                 onDelete={() => {
-                                    if (confirm(`Supprimer "${a.title}" ?`)) remove(a.id);
+                                    if (confirm(`Supprimer l'article "${a.title}" ?\n\nCette action est irréversible.`)) {
+                                        remove(a.id);
+                                    }
                                 }}
                             />
                         ))}
