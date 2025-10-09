@@ -6,11 +6,13 @@ import { useRouter } from 'next/navigation';
 import { useArticleStore } from '../../../store/articleStore';
 import { BackLink } from '../../../components/ui/BackLink';
 import { ArticleForm } from '../../../components/articles/ArticleForm';
+import { useUserStore } from '../../../store/userStore';
 
 export default function CreateArticlePage() {
     const router = useRouter();
     const add = useArticleStore((s) => s.add);
     const [loading, setLoading] = useState(false);
+    const userId = useUserStore(s => s.currentUserId);
 
     return (
         <div className="min-h-screen bg-gray-50 py-8 px-4">
@@ -25,7 +27,7 @@ export default function CreateArticlePage() {
                         onSubmit={async ({ title, content }) => {
                             setLoading(true);
                             await new Promise((r) => setTimeout(r, 500)); // simule API
-                            add({ title, content, authorId: '1' });       // adapte l'id auteur si besoin
+                            add({ title, content, authorId: userId });
                             setLoading(false);
                             router.push('/pages/articles');
                         }}
