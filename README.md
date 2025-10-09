@@ -32,16 +32,6 @@ Outil / Framework	Rôle
 🧪 Jest + Testing Library	Tests unitaires
 🌐 ESLint / Prettier	Qualité et cohérence du code
 
-📂 Structure du projet
-src/
-├── app/
-│   ├── components/       # Composants UI (auth, articles, layout, etc.)
-│   ├── lib/              # Hooks utilitaires et types
-│   ├── pages/            # Pages principales (articles, auth, users)
-│   ├── store/            # Stores Zustand (authStore, userStore, articleStore)
-│   └── layout.tsx        # Layout global (Navbar, Footer, etc.)
-├── public/               # Images et ressources statiques
-└── jest.config.ts        # Configuration des tests
 
 ⚙️ Installation & Lancement local
 🧰 Prérequis
