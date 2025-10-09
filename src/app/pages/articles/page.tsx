@@ -23,16 +23,20 @@ export default function ArticlesPage() {
 
     const filtered = useMemo(() => {
         const byTitle = q.trim().toLowerCase();
+
         let list = byTitle
             ? articles.filter(a => a.title.toLowerCase().includes(byTitle))
             : articles.slice();
+
+        if (mineOnly) list = list.filter(a => a.authorId === currentUserId); // <- ajout
+
         list.sort((a, b) => {
             const da = +new Date(a.createdAt);
             const db = +new Date(b.createdAt);
             return order === 'desc' ? db - da : da - db;
         });
         return list;
-    }, [articles, q, order]);
+    }, [articles, q, order, mineOnly, currentUserId]);
 
     return (
         <div className="min-h-screen bg-gray-50 py-8 px-4">
