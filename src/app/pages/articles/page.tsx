@@ -8,8 +8,7 @@ import Link from 'next/link';
 
 export default function ArticlesPage() {
     // 🎣 Hook Zustand : récupère les articles du store
-    const articles = useArticleStore((state) => state.articles);
-    const remove = useArticleStore(s => s.remove);
+    const { articles, remove } = useArticleStore();
 
     // 🎯 Explication :
     // useArticleStore((state) => state.articles)
@@ -86,8 +85,8 @@ export default function ArticlesPage() {
                                             <span>
                         ✍️ Auteur : {article.authorId}
                       </span>
-                                        </div>
-                                    </div>
+            </div>
+        </div>
 
                                     {/* 🎛️ Boutons d'actions */}
                                     <div className="flex gap-2 ml-4">
