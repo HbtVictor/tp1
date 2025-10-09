@@ -1,36 +1,135 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+🧠 TP1 – Gestion de Contenu
 
-## Getting Started
+Application web moderne réalisée avec Next.js 14, TypeScript, Zustand et TailwindCSS.
+Ce projet met en œuvre une architecture front-end propre et modulaire pour gérer des utilisateurs et des articles, avec un système d’authentification et une interface responsive incluant un dark mode.
 
-First, run the development server:
+🚀 Objectif du projet
 
-```bash
+Le but de ce TP est de concevoir une application de gestion de contenu permettant :
+
+🔐 Authentification locale (inscription et connexion avec stockage dans localStorage)
+
+📰 Gestion des articles (création, suppression, filtrage, tri)
+
+👥 Gestion des utilisateurs (visualisation, édition, rôles)
+
+🌙 Mode clair / sombre automatique
+
+💾 Persistance des données via Zustand (localStorage)
+
+🧭 Navigation fluide avec Next.js App Router
+
+🧱 Composants modulaires et design responsive moderne
+
+🧩 Technologies utilisées
+Outil / Framework	Rôle
+⚡ Next.js 14	Framework React avec App Router
+💻 TypeScript	Typage statique robuste
+🎨 TailwindCSS	Design responsive et dark mode
+🧠 Zustand	Gestion d’état légère et persistante
+🧰 Lucide Icons	Icônes modernes pour l’UI
+🧪 Jest + Testing Library	Tests unitaires
+🌐 ESLint / Prettier	Qualité et cohérence du code
+📂 Structure du projet
+src/
+├── app/
+│   ├── components/       # Composants UI (auth, articles, layout, etc.)
+│   ├── lib/              # Hooks utilitaires et types
+│   ├── pages/            # Pages principales (articles, auth, users)
+│   ├── store/            # Stores Zustand (authStore, userStore, articleStore)
+│   └── layout.tsx        # Layout global (Navbar, Footer, etc.)
+├── public/               # Images et ressources statiques
+└── jest.config.ts        # Configuration des tests
+
+⚙️ Installation & Lancement local
+🧰 Prérequis
+
+Assure-toi d’avoir installé :
+
+Node.js
+ v18+
+
+npm
+ ou pnpm
+ / [yarn]
+
+1️⃣ Cloner le projet
+git clone https://github.com/<ton-utilisateur>/<nom-du-projet>.git
+cd <nom-du-projet>
+
+2️⃣ Installer les dépendances
+npm install
+# ou
+yarn install
+
+3️⃣ Lancer le projet en mode développement
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+➡️ L’application sera disponible sur :
+👉 http://localhost:3000
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4️⃣ Lancer les tests unitaires
+npm run test
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+🧪 Exécute les tests Jest configurés dans src/app/__tests__/.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+5️⃣ Générer la build de production
+npm run build
+npm start
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+🔒 Authentification & Sécurité
 
-## Deploy on Vercel
+Les utilisateurs sont stockés dans le store Zustand (localStorage).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Routes publiques : /pages/auth/login et /pages/auth/register
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Toute autre route est protégée par le composant ProtectedRoute.
+
+Un utilisateur déconnecté est automatiquement redirigé vers /pages/auth/login.
+
+🌗 Dark Mode & Responsivité
+
+Le dark mode est géré automatiquement via Tailwind (dark:).
+
+L’interface est 100 % responsive, adaptée aux mobiles, tablettes et desktops.
+
+🧠 Architecture Zustand
+
+Chaque store (auth, user, article) utilise le pattern :
+
+persist(
+  (set, get) => ({ ... }),
+  { name: "store-name", storage: createJSONStorage(() => localStorage) }
+);
+
+
+Cela permet :
+
+la persistance automatique des données entre les sessions,
+
+un rechargement instantané du contexte utilisateur.
+
+🧪 Tests unitaires
+
+Les tests utilisent :
+
+Jest pour le framework de test
+
+@testing-library/react pour les interactions UI
+
+Fichiers de test :
+
+src/app/__tests__/
+├── authStore.test.ts
+└── articleStore.test.ts
+
+👤 Auteur
+
+Projet réalisé par [Ton Nom] dans le cadre du TP1 - Gestion de Contenu (Next.js / TypeScript / Zustand).
+
+📄 Licence
+
+Ce projet est libre d’utilisation dans le cadre académique.
+Aucune restriction de diffusion, à condition de citer la source d’origine.
