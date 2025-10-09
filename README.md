@@ -22,6 +22,7 @@ Le but de ce TP est de concevoir une application de gestion de contenu permettan
 🧱 Composants modulaires et design responsive moderne
 
 🧩 Technologies utilisées
+
 Outil / Framework	Rôle
 ⚡ Next.js 14	Framework React avec App Router
 💻 TypeScript	Typage statique robuste
@@ -30,6 +31,7 @@ Outil / Framework	Rôle
 🧰 Lucide Icons	Icônes modernes pour l’UI
 🧪 Jest + Testing Library	Tests unitaires
 🌐 ESLint / Prettier	Qualité et cohérence du code
+
 📂 Structure du projet
 src/
 ├── app/
