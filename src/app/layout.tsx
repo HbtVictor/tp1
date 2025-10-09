@@ -4,7 +4,8 @@ import { Footer } from "@/app/components/layout/Footer";
 
 export const metadata = {
   title: "TP1 - Gestion de Contenu",
-  description: "Application de gestion de contenu avec Next.js, Zustand et Tailwind",
+  description:
+    "Application de gestion de contenu avec Next.js, Zustand et Tailwind",
 };
 
 export default function RootLayout({
@@ -14,9 +15,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr">
-      <body className="min-h-screen bg-gray-50 text-gray-900">
+      <body className="flex flex-col min-h-screen bg-gray-50 text-gray-900">
+        {/* Navbar fixée en haut */}
         <Navbar />
-        <main className="">{children}</main>
+
+        {/* Contenu principal prend tout l’espace restant */}
+        <main className="flex-grow pt-20 px-4">
+          {children}
+        </main>
+
+        {/* Footer toujours en bas */}
         <Footer />
       </body>
     </html>
