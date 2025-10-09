@@ -1,39 +1,35 @@
+// src/app/pages/articles/[id]/page.tsx
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
-import Link from 'next/link';
 import { useArticleStore } from '../../../store/articleStore';
-import { mockUsers } from '../../../lib/mockData'; // <-- ajout
+import { userById } from '../../../lib/userIndex';
+import { ArticleBody, ArticleMeta, ArticleActions } from '../../../components/articles/detail';
 
-export default function ArticleDetail() {
-    const { id } = useParams<{ id: string }>();
+export default function ArticleDetailPage() {
+    const { id } = useParams<{ id:string }>();
     const router = useRouter();
-    const { articles } = useArticleStore();
-
-    const article = articles.find(a => String(a.id) === String(id));
-    const author = mockUsers.find(u => u.id === article?.authorId); // <-- username
+    const article = useArticleStore(s => s.articles.find(a => String(a.id) === String(id)));
 
     if (!article) {
         return (
-            <div className="container-pro text-center">
-                <h1>Article introuvable</h1>
-                <p className="muted mt-2">Cet article n’existe pas ou a été supprimé.</p>
-                <button onClick={() => router.back()} className="btn btn-ghost mt-4">Retour</button>
+            <div className="min-h-screen bg-gray-50 py-8 px-4">
+                <div className="max-w-3xl mx-auto">
+                    <h1 className="text-2xl font-semibold">Article introuvable</h1>
+                    <button onClick={() => router.back()} className="text-blue-600 mt-2">← Retour</button>
+                </div>
             </div>
         );
     }
 
+    const authorName = userById[article.authorId] ?? 'Inconnu';
+
     return (
-        <div className="container-pro">
-            <article className="card p-8">
-                <h1 className="text-2xl font-semibold mb-3">{article.title}</h1>
-                <p className="muted mb-4">
-                    📅 {new Date(article.createdAt).toLocaleDateString('fr-FR')} · ✍️ Auteur : {author?.username ?? 'Inconnu'}
-                </p>
-                <p className="text-gray-700 leading-relaxed whitespace-pre-line">{article.content}</p>
-            </article>
-            <div className="mt-6">
-                <Link href="/pages/articles" className="btn btn-ghost">← Retour à la liste</Link>
+        <div className="min-h-screen bg-gray-50 py-8 px-4">
+            <div className="max-w-3xl mx-auto">
+                <ArticleBody title={article.title} content={article.content} />
+                <ArticleMeta createdAt={article.createdAt} authorName={authorName} />
+                <ArticleActions />
             </div>
         </div>
     );
