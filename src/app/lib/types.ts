@@ -5,6 +5,7 @@ export interface User {
   password: string;
   sujet: string;
   pp?: string;
+  role: "admin" | "user"; 
 }
 
 export interface Article {

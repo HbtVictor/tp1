@@ -9,6 +9,7 @@ export const mockUsers: User[] = [
     password: "admin123",
     sujet: "all",
     pp: "/img/users/admin_pp.png",
+    role: "admin"
   },
   {
     id: "2",
@@ -17,6 +18,7 @@ export const mockUsers: User[] = [
     password: "password",
     sujet: "quotidien",
     pp: "/img/users/alice_pp.png",
+    role: "user"
   },
 ];
 
