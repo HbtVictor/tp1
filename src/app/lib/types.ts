@@ -3,6 +3,7 @@ export interface User {
   username: string;
   email: string;
   password: string;
+  sujet: string;
 }
 
 export interface Article {
