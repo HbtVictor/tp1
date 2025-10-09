@@ -2,6 +2,7 @@ import "./globals.css";
 import { Navbar } from "@/app/components/layout/Navbar";
 import { Footer } from "@/app/components/layout/Footer";
 import { ThemeProvider } from "@/app/context/ThemeContext";
+import ProtectedRoute from "@/app/components/auth/ProtectedRoute";
 
 export const metadata = {
   title: "TP1 - Gestion de Contenu",
@@ -19,7 +20,7 @@ export default function RootLayout({
         <ThemeProvider>
           <Navbar />
           <main className="flex-grow">
-            {children}
+            <ProtectedRoute>{children}</ProtectedRoute>
           </main>
           <Footer />
         </ThemeProvider>
