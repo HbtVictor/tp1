@@ -12,7 +12,8 @@ export default function UsersList({ users }: UsersListProps) {
   const router = useRouter();
 
   const handleUserClick = (userId: string) => {
-    router.push(`/UserCard/${userId}`);
+    router.push(`/pages/users/${userId}`);
+    // Redirige vers /users/[userId]/page.tsx
   };
 
   return (
@@ -28,7 +29,7 @@ export default function UsersList({ users }: UsersListProps) {
           >
             <img
               alt={user.username}
-              src={user.pp} // Assure-toi que pp contient le chemin correct
+              src={user.pp}
               className="w-20 h-20 rounded-full border-4 border-white shadow-md object-cover"
             />
             <div className="flex-1 ml-6">
