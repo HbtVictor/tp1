@@ -111,15 +111,10 @@ Jest pour le framework de test
 
 @testing-library/react pour les interactions UI
 
-Fichiers de test :
-
-src/app/__tests__/
-├── authStore.test.ts
-└── articleStore.test.ts
 
 👤 Auteur
 
-Projet réalisé par [Ton Nom] dans le cadre du TP1 - Gestion de Contenu (Next.js / TypeScript / Zustand).
+Projet réalisé par Victor, Arthur et Mathias dans le cadre du TP1 - Gestion de Contenu (Next.js / TypeScript / Zustand).
 
 📄 Licence
 
