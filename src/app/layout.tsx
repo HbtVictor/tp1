@@ -1,5 +1,6 @@
 import "./globals.css";
 import { Navbar } from "@/app/components/layout/Navbar";
+import { Footer } from "@/app/components/layout/Footer";
 
 export const metadata = {
   title: "TP1 - Gestion de Contenu",
@@ -16,6 +17,7 @@ export default function RootLayout({
       <body className="min-h-screen bg-gray-50 text-gray-900">
         <Navbar />
         <main className="">{children}</main>
+        <Footer />
       </body>
     </html>
   );
