@@ -1,4 +1,5 @@
 // src/app/components/articles/ArticleCard.tsx
+"use client";
 import Link from 'next/link';
 
 type Props = {

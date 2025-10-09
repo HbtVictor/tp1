@@ -14,7 +14,7 @@ export default function UserCard({ user, onSave }: UserCardProps) {
   const [showEdit, setShowEdit] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-start justify-center">
       {/* Carte profil simplifiée */}
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 w-full max-w-sm p-8">
         

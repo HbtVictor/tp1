@@ -4,7 +4,7 @@ import UsersList from "../../components/users/UserList"; // <-- importe ton comp
 
 export default function UsersPage() {
   return (
-    <main className="p-6">
+    <main className="">
       <UsersList users={mockUsers} />
     </main>
   );

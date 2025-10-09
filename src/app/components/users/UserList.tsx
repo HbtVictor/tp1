@@ -17,7 +17,7 @@ export default function UsersList({ users }: UsersListProps) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex flex-col items-center min-h-screen">
       <h2 className="text-3xl font-bold text-gray-900 mb-10 text-center">
         Liste des utilisateurs
       </h2>
