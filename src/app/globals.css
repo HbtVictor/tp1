@@ -3,28 +3,40 @@
 @tailwind components;
 @tailwind utilities;
 
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/* Tokens (v4) */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+    --color-ui-bg: #0b0c0f;
+    --color-ui-card: #111318;
+    --color-ui-line: #1e2128;
+
+    --color-brand: #2563eb;
+    --color-brand-hover: #1d4ed8;
+    --color-brand-fg: #ffffff;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* globals.css */
+@utility line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+
+/* Styles de base + composants utilitaires */
+@layer base {
+    html, body { @apply bg-gray-50 text-gray-900 antialiased; }
+    h1 { @apply text-2xl font-semibold tracking-tight; }
+    h2 { @apply text-xl font-semibold tracking-tight; }
+    a  { @apply text-brand hover:text-brand-hover; }
+}
+@layer components {
+    .container-pro { @apply max-w-5xl mx-auto px-6 py-10; }        /* largeur + padding */
+    .btn           { @apply inline-flex items-center justify-center rounded-md px-3.5 py-2.5 text-sm font-medium; }
+    .card { @apply bg-white rounded-xl shadow border border-gray-200; }
+    .btn-primary { @apply bg-blue-600 text-white hover:bg-blue-700; }
+    .btn-ghost { @apply border border-gray-300 hover:bg-gray-100; }
+    .muted { @apply text-gray-500; }
+    .input         { @apply w-full rounded-md border border-ui-line bg-transparent px-3 py-2 outline-none focus:ring-2 focus:ring-brand; }
+    .label         { @apply text-sm text-neutral-400 mb-1 block; }
 }

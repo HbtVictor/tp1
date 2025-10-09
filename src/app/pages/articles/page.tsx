@@ -86,8 +86,8 @@ export default function ArticlesPage() {
                                             <span>
                         ✍️ Auteur : {article.authorId}
                       </span>
-                                        </div>
-                                    </div>
+            </div>
+        </div>
 
                                     {/* Boutons d'actions */}
                                     <div className="flex gap-2 ml-4">
