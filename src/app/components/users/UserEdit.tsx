@@ -14,6 +14,7 @@ export default function UserEdit({ user, onClose, onSave }: UserEditProps) {
   const [form, setForm] = useState<User>({
     id: user?.id || "",
     username: user?.username || "",
+    role: user?.role || "user",
     email: user?.email || "",
     password: user?.password || "",
     sujet: user?.sujet || "",
