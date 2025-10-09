@@ -1,5 +1,4 @@
 // src/app/components/articles/ArticleCard.tsx
-"use client";
 import Link from 'next/link';
 import { Eye, Trash2, Calendar, User } from 'lucide-react';
 
