@@ -1,10 +1,13 @@
+// src/app/pages/articles/[id]/page.tsx
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useArticleStore } from '../../../store/articleStore';
 import { mockUsers } from '../../../lib/mockData';
-import { Calendar, User, Clock, ArrowLeft, BookOpen, AlertCircle } from 'lucide-react';
+import { Calendar, User, Clock, ArrowLeft, BookOpen, AlertCircle, MessageSquare } from 'lucide-react';
+import CommentForm from '../../../components/CommentForm';
+import CommentList from '../../../components/CommentList';
 
 export default function ArticleDetail() {
     const { id } = useParams<{ id: string }>();
@@ -89,7 +92,8 @@ export default function ArticleDetail() {
 
             {/* Contenu de l'article */}
             <div className="py-12 px-4">
-                <div className="max-w-4xl mx-auto">
+                <div className="max-w-4xl mx-auto space-y-8">
+                    {/* Article principal */}
                     <article className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
                         {/* Badge lecture */}
                         <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 px-8 py-4 border-b border-gray-200 dark:border-gray-700">
@@ -138,6 +142,23 @@ export default function ArticleDetail() {
                             </div>
                         </div>
                     </article>
+
+                    {/* Section Commentaires */}
+                    <div className="space-y-6">
+                        {/* Header de la section commentaires */}
+                        <div className="flex items-center gap-3">
+                            <MessageSquare className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                                Commentaires
+                            </h2>
+                        </div>
+
+                        {/* Formulaire d'ajout de commentaire */}
+                        <CommentForm articleId={article.id} />
+
+                        {/* Liste des commentaires */}
+                        <CommentList articleId={article.id} />
+                    </div>
                 </div>
             </div>
         </div>
