@@ -72,13 +72,13 @@ export const Navbar = () => {
                   Stats
                 </Link>
 
-                  <Link
-                    href="/pages/users"
-                    className="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors"
-                  >
-                    <User className="w-4 h-4" />
-                    Utilisateurs
-                  </Link>
+                <Link
+                  href="/pages/users"
+                  className="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors"
+                >
+                  <User className="w-4 h-4" />
+                  Utilisateurs
+                </Link>
 
                 <button
                   onClick={handleLogout}
@@ -160,16 +160,14 @@ export const Navbar = () => {
                   Stats
                 </Link>
 
-                {user.role === "admin" && (
-                  <Link
-                    href="/pages/users"
-                    className="flex items-center gap-2 px-4 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 font-medium transition-colors"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    <User className="w-4 h-4" />
-                    Utilisateurs
-                  </Link>
-                )}
+                <Link
+                  href="/pages/users"
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 font-medium transition-colors"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <User className="w-4 h-4" />
+                  Utilisateurs
+                </Link>
 
                 <button
                   onClick={() => {
