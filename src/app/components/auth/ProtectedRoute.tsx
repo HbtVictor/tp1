@@ -20,6 +20,7 @@ const VALID_PATHS = [
   "/pages/users/[userId]",
   "/pages/auth/login",
   "/pages/auth/register",
+  "/pages/stats",
 ];
 
 export default function ProtectedRoute({ children }: { children: ReactNode }) {
