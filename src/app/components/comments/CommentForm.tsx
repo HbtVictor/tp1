@@ -1,4 +1,4 @@
-// src/app/components/CommentForm.tsx
+// src/app/components/comments/CommentForm.tsx
 'use client';
 
 import { useState } from 'react';
