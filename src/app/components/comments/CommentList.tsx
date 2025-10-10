@@ -1,4 +1,4 @@
-// src/app/components/CommentList.tsx
+// src/app/components/comments/CommentList.tsx
 'use client';
 
 import { Trash2, MessageCircle } from 'lucide-react';
