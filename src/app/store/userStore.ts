@@ -4,6 +4,7 @@ import { persist, createJSONStorage } from "zustand/middleware";
 import type { User } from "@/app/lib/types";
 import { mockUsers } from "@/app/lib/mockData";
 
+// ✅ Génère un ID unique (fallback si crypto non dispo)
 const generateId = () =>
   (typeof crypto !== "undefined" && crypto.randomUUID)
     ? crypto.randomUUID()
@@ -19,6 +20,7 @@ interface UserState {
   getUserByEmail: (email: string) => User | undefined;
 }
 
+// ✅ Création du store Zustand avec persistance
 export const useUserStore = create<UserState>()(
   persist(
     (set, get) => ({
@@ -59,7 +61,12 @@ export const useUserStore = create<UserState>()(
     {
       name: "user-storage",
       version: 1,
-      migrate: (persistedState: unknown, version: number): Pick<UserState, "users" | "currentUserId"> => {
+
+      // ✅ migration typée
+      migrate: (
+        persistedState: unknown,
+        version: number
+      ): Pick<UserState, "users" | "currentUserId"> => {
         console.log("🧩 Migrating user-store from version", version);
 
         if (typeof persistedState === "object" && persistedState !== null) {
@@ -75,6 +82,8 @@ export const useUserStore = create<UserState>()(
           currentUserId: mockUsers[0]?.id ?? "",
         };
       },
+
+      // ✅ évite les erreurs SSR
       storage: createJSONStorage(() => {
         if (typeof window !== "undefined") return localStorage;
         return {
@@ -86,3 +95,11 @@ export const useUserStore = create<UserState>()(
     }
   )
 );
+
+// ✅ Force la réhydratation / écriture en localStorage au premier rendu client
+if (typeof window !== "undefined") {
+  useUserStore.persist.rehydrate();
+  const current = useUserStore.getState();
+  // petit "touch" pour déclencher l’écriture
+  useUserStore.setState({ users: current.users });
+}
