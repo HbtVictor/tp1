@@ -1,6 +1,4 @@
-"use client";
-
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { User } from "../../lib/types";
 import { UserCircleIcon, PhotoIcon } from "@heroicons/react/24/solid";
 
@@ -23,6 +21,21 @@ export default function UserEdit({ user, onClose, onSave }: UserEditProps) {
 
   const [error, setError] = useState<string | null>(null);
 
+  // ✅ synchronise si le user prop change
+  useEffect(() => {
+    if (user) {
+      setForm({
+        id: user.id,
+        username: user.username,
+        role: user.role,
+        email: user.email,
+        password: user.password,
+        sujet: user.sujet || "",
+        pp: user.pp || "",
+      });
+    }
+  }, [user]);
+
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -44,16 +57,14 @@ export default function UserEdit({ user, onClose, onSave }: UserEditProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // ✅ Validation basique
     if (!form.username || !form.email || !form.password) {
       setError("Merci de remplir tous les champs obligatoires !");
       return;
     }
 
-    // ✅ Appel du callback du parent
-    if (onSave) onSave(form);
+    // ✅ Toujours renvoyer un user complet avec id
+    if (onSave) onSave({ ...form, id: user?.id || form.id });
 
-    // ✅ Petit délai pour laisser Zustand persister avant de fermer
     setTimeout(onClose, 200);
   };
 
