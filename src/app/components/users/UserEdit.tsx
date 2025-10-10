@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { User } from "../../lib/types";
+import type { User } from "../../lib/types";
 import { UserCircleIcon, PhotoIcon } from "@heroicons/react/24/solid";
 
 interface UserEditProps {
@@ -21,7 +21,8 @@ export default function UserEdit({ user, onClose, onSave }: UserEditProps) {
     pp: user?.pp || "",
   });
 
-  // Ajout gestion image locale
+  const [error, setError] = useState<string | null>(null);
+
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -42,8 +43,18 @@ export default function UserEdit({ user, onClose, onSave }: UserEditProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    // ✅ Validation basique
+    if (!form.username || !form.email || !form.password) {
+      setError("Merci de remplir tous les champs obligatoires !");
+      return;
+    }
+
+    // ✅ Appel du callback du parent
     if (onSave) onSave(form);
-    onClose();
+
+    // ✅ Petit délai pour laisser Zustand persister avant de fermer
+    setTimeout(onClose, 200);
   };
 
   return (
@@ -70,11 +81,11 @@ export default function UserEdit({ user, onClose, onSave }: UserEditProps) {
           ) : (
             <UserCircleIcon className="w-24 h-24 text-gray-600" />
           )}
-          
+
           <label className="mt-2 flex flex-col items-center cursor-pointer">
             <span className="flex items-center gap-2 text-sm text-emerald-300 hover:text-emerald-400">
               <PhotoIcon className="w-5 h-5" />
-              Sélectionner une image 
+              Sélectionner une image
             </span>
             <input
               type="file"
@@ -87,7 +98,9 @@ export default function UserEdit({ user, onClose, onSave }: UserEditProps) {
 
         {/* Username */}
         <div>
-          <label className="block text-sm font-medium leading-6">Nom d’utilisateur</label>
+          <label className="block text-sm font-medium leading-6">
+            Nom d’utilisateur
+          </label>
           <input
             type="text"
             name="username"
@@ -113,7 +126,9 @@ export default function UserEdit({ user, onClose, onSave }: UserEditProps) {
 
         {/* Password */}
         <div>
-          <label className="block text-sm font-medium leading-6">Mot de passe</label>
+          <label className="block text-sm font-medium leading-6">
+            Mot de passe
+          </label>
           <input
             type="password"
             name="password"
@@ -126,24 +141,39 @@ export default function UserEdit({ user, onClose, onSave }: UserEditProps) {
 
         {/* Sujet préféré */}
         <div>
-          <label className="block text-sm font-medium leading-6">Sujet préféré</label>
+          <label className="block text-sm font-medium leading-6">
+            Sujet préféré
+          </label>
           <select
             name="sujet"
             value={form.sujet}
             onChange={handleChange}
             className="mt-2 block w-full rounded-md bg-white/5 px-3 py-2 text-sm text-white focus:ring-2 focus:ring-emerald-500"
-            required
           >
-            <option value="" className="bg-gray-900 text-white">Sélectionner...</option>
-            <option value="all" className="bg-gray-900 text-white">Tous</option>
-            <option value="quotidien" className="bg-gray-900 text-white">Quotidien</option>
-            <option value="tech" className="bg-gray-900 text-white">Tech</option>
-            <option value="autre" className="bg-gray-900 text-white">Autre</option>
+            <option value="" className="bg-gray-900 text-white">
+              Sélectionner...
+            </option>
+            <option value="all" className="bg-gray-900 text-white">
+              Tous
+            </option>
+            <option value="quotidien" className="bg-gray-900 text-white">
+              Quotidien
+            </option>
+            <option value="tech" className="bg-gray-900 text-white">
+              Tech
+            </option>
+            <option value="autre" className="bg-gray-900 text-white">
+              Autre
+            </option>
           </select>
         </div>
+
+        {/* Message d’erreur */}
+        {error && (
+          <p className="text-red-400 text-sm text-center mt-2">{error}</p>
+        )}
       </div>
 
-      {/* Boutons */}
       <div className="mt-8 flex justify-end gap-4">
         <button
           type="button"

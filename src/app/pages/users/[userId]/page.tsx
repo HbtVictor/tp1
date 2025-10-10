@@ -1,31 +1,26 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { useState } from "react";
-import { mockUsers } from "@/app/lib/mockData";
-import { User } from "@/app/lib/types";
+import { useUserStore } from "@/app/store/userStore";
+import { useAuthStore } from "@/app/store/authStore";
 import UserCard from "@/app/components/users/UserCard";
+import type { User } from "@/app/lib/types";
 
 export default function UserPage() {
   const { userId } = useParams();
-  const initialUser = mockUsers.find((u) => u.id === userId);
+  const { users, updateUser } = useUserStore();
+  const authUser = useAuthStore((s) => s.user);
 
-  const [user, setUser] = useState<User | undefined>(initialUser);
+  const user = users.find((u) => u.id === userId);
 
   if (!user) {
-    return <p className="text-center mt-10">Utilisateur introuvable</p>;
+    return <p className="text-center mt-10 text-gray-600 dark:text-gray-300">Utilisateur introuvable</p>;
   }
 
   const handleSave = (updatedUser: User) => {
-    // ⚡ ici tu fais la vraie sauvegarde :
-    // - pour l'instant : mise à jour du state local
-    // - plus tard : appel à une API (ex: fetch("/api/users", {method:"PUT", body:...}))
-    setUser(updatedUser);
-
-    console.log("Utilisateur sauvegardé :", updatedUser);
+    updateUser(user.id, updatedUser);
+    console.log("✅ Utilisateur sauvegardé :", updatedUser);
   };
 
-  return (
-    <UserCard user={user} onSave={handleSave} />
-  );
+  return <UserCard/>;
 }
