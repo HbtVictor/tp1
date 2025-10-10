@@ -22,7 +22,7 @@ export function EmptyArticles() {
 
             {/* Description */}
             <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-md mx-auto leading-relaxed">
-                Commencez votre aventure d'écriture en créant votre premier article. Partagez vos idées avec la communauté !
+                Commencez votre aventure d&apos;écriture en créant votre premier article. Partagez vos idées avec la communauté !
             </p>
 
             {/* Bouton d'action */}

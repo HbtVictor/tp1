@@ -38,7 +38,7 @@ export function ArticleForm({
           className="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3"
         >
           <Type className="w-4 h-4" />
-          Titre de l'article
+          Titre de l&apos;article
           <span className="text-red-500">*</span>
         </label>
         <div className="relative">
@@ -133,7 +133,7 @@ export function ArticleForm({
           ) : (
             <>
               <Save className="w-5 h-5" />
-              Publier l'article
+              Publier l&apos;article
             </>
           )}
         </button>

@@ -68,7 +68,7 @@ export const RegisterForm = () => {
           {/* Username Input */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Nom d'utilisateur
+              Nom d&apos;utilisateur
             </label>
             <div className="relative">
               <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 dark:text-gray-500" />
@@ -156,7 +156,7 @@ export const RegisterForm = () => {
       <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-6">
         En créant un compte, vous acceptez nos{" "}
         <span className="text-blue-600 dark:text-blue-400 hover:underline cursor-pointer">
-          conditions d'utilisation
+          conditions d&apos;utilisation
         </span>
       </p>
     </div>
