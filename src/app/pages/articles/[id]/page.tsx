@@ -1,6 +1,9 @@
 // src/app/pages/articles/[id]/page.tsx
 'use client';
 
+import { useUserStore } from '@/app/store/userStore';
+import { Edit } from 'lucide-react';
+import Link from 'next/link';
 import { ArticleDetailHeader } from '@/app/components/articles/ArticleDetailHeader';
 import ExportButton from '@/app/components/ExportButton';
 import CommentForm from '@/app/components/comments/CommentForm';
@@ -15,6 +18,10 @@ import {
 
 export default function ArticleDetail() {
     const { article, author, wordCount, readingTime } = useArticleDetail();
+    const currentUserId = useUserStore(s => s.currentUserId);
+    const currentUser   = useUserStore(s => s.users.find(u => u.id === currentUserId));
+    const canEdit = article.authorId === currentUserId || currentUser?.role === 'admin';
+
 
     if (!article) return <ArticleNotFound />;
 
@@ -24,8 +31,22 @@ export default function ArticleDetail() {
                 article={article}
                 authorName={author?.username ?? 'Inconnu'}
                 readingTime={readingTime}
-                right={<ExportButton articles={article} variant="ghost" size="sm" label="Exporter" />}
+                right={
+                    <div className="flex items-center gap-2">
+                        {canEdit && (
+                            <Link
+                                href={`/pages/articles/${article.id}/edit`}
+                                className="inline-flex items-center gap-2 px-3 py-2 bg-white/15 hover:bg-white/25 text-white rounded-lg backdrop-blur transition"
+                            >
+                                <Edit className="w-4 h-4" />
+                                Modifier
+                            </Link>
+                        )}
+                        <ExportButton articles={article} variant="ghost" size="sm" label="Exporter" />
+                    </div>
+                }
             />
+
 
             <div className="py-12 px-4">
                 <div className="max-w-4xl mx-auto space-y-8">
