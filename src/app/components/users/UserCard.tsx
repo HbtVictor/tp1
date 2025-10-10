@@ -7,27 +7,49 @@ import { useAuthStore } from "@/app/store/authStore";
 import { useUserStore } from "@/app/store/userStore";
 import type { User } from "@/app/lib/types";
 
-export default function UserCard() {
+interface UserCardProps {
+  userId?: string; // ✅ optionnel — permet d’afficher un user précis
+}
+
+export default function UserCard({ userId }: UserCardProps) {
   const authUser = useAuthStore((s) => s.user);
-  const setAuthUser = useAuthStore((s) => s.setUser); // ✅ ajout ici
+  const setAuthUser = useAuthStore((s) => s.setUser);
   const { users, updateUser } = useUserStore();
+
   const [mounted, setMounted] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
-
   useEffect(() => setMounted(true), []);
   if (!mounted) return null;
 
-  if (!authUser) return null; // pas connecté
+  // ✅ si on a un userId en prop, on affiche ce user-là
+  // sinon, on affiche le user connecté (authUser)
+  const currentUser = userId
+    ? users.find((u) => u.id === userId)
+    : authUser
+    ? users.find((u) => u.id === authUser.id)
+    : null;
 
-  const currentUser = users.find((u) => u.id === authUser.id);
-  if (!currentUser) return null;
+  if (!currentUser)
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p className="text-gray-500 dark:text-gray-400">
+          Utilisateur introuvable.
+        </p>
+      </div>
+    );
+
+  // ✅ seul le propriétaire ou un admin peut modifier
+  const canEdit =
+    authUser && (authUser.id === currentUser.id || authUser.role === "admin");
 
   const handleSave = (updatedUser: User) => {
-    // ✅ 1. Met à jour dans userStore
+    // 1️⃣ Met à jour le user dans le userStore
     updateUser(currentUser.id, updatedUser);
 
-    // ✅ 2. Met à jour dans authStore si c'est l'utilisateur connecté
-    setAuthUser({ ...authUser, ...updatedUser });
+    // 2️⃣ Si c’est le user connecté, met à jour aussi dans le authStore
+    if (authUser && authUser.id === currentUser.id) {
+      setAuthUser({ ...authUser, ...updatedUser });
+    }
 
     setShowEdit(false);
   };
@@ -50,15 +72,18 @@ export default function UserCard() {
             )}
           </div>
 
-          <button
-            className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-            onClick={() => setShowEdit(true)}
-            aria-label="Modifier le profil"
-          >
-            <Settings className="w-5 h-5 text-gray-600 dark:text-gray-300" />
-          </button>
+          {canEdit && (
+            <button
+              className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              onClick={() => setShowEdit(true)}
+              aria-label="Modifier le profil"
+            >
+              <Settings className="w-5 h-5 text-gray-600 dark:text-gray-300" />
+            </button>
+          )}
         </div>
 
+        {/* Infos user */}
         <div className="text-center mb-6">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
             {currentUser.username}
@@ -77,6 +102,7 @@ export default function UserCard() {
           </p>
         </div>
 
+        {/* Autres infos */}
         <div className="space-y-4 text-gray-700 dark:text-gray-300">
           <div className="flex items-center gap-2">
             <Mail className="w-5 h-5 text-blue-500 dark:text-blue-400" />
@@ -89,7 +115,8 @@ export default function UserCard() {
         </div>
       </div>
 
-      {showEdit && (
+      {/* Modal d’édition */}
+      {showEdit && canEdit && (
         <>
           <div
             className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 transition-opacity"
