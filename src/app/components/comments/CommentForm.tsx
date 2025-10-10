@@ -3,8 +3,8 @@
 
 import { useState } from 'react';
 import { Send } from 'lucide-react';
-import { useCommentStore } from '../store/commentStore';
-import { useUserStore } from '../store/userStore';
+import { useCommentStore } from '../../store/commentStore';
+import { useUserStore } from '../../store/userStore';
 
 interface CommentFormProps {
     articleId: string;

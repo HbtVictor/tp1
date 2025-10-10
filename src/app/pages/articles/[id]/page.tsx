@@ -6,8 +6,8 @@ import Link from 'next/link';
 import { useArticleStore } from '../../../store/articleStore';
 import { mockUsers } from '../../../lib/mockData';
 import { Calendar, User, Clock, ArrowLeft, BookOpen, AlertCircle, MessageSquare } from 'lucide-react';
-import CommentForm from '../../../components/CommentForm';
-import CommentList from '../../../components/CommentList';
+import CommentForm from '../../../components/comments/CommentForm';
+import CommentList from '../../../components/comments/CommentList';
 
 export default function ArticleDetail() {
     const { id } = useParams<{ id: string }>();

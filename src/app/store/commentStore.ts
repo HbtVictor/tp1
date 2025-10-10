@@ -1,14 +1,8 @@
-// src/app/store/commentStore.ts
+'use client';
+
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-
-export interface Comment {
-    id: string;
-    articleId: string;
-    authorId: string;
-    content: string;
-    createdAt: string;
-}
+import type { Comment } from "@/app/lib/types";
 
 type CommentState = {
     comments: Comment[];
@@ -22,29 +16,19 @@ export const useCommentStore = create<CommentState>()(
     persist(
         (set, get) => ({
             comments: [],
-
             add: (comment) =>
                 set((state) => ({
                     comments: [
                         ...state.comments,
-                        {
-                            id: crypto.randomUUID(),
-                            createdAt: new Date().toISOString(),
-                            ...comment,
-                        },
+                        { id: crypto.randomUUID(), createdAt: new Date().toISOString(), ...comment },
                     ],
                 })),
-
-            remove: (id) =>
-                set((state) => ({
-                    comments: state.comments.filter((c) => c.id !== id),
-                })),
-
+            remove: (id) => set((state) => ({ comments: state.comments.filter((c) => c.id !== id) })),
             getByArticle: (articleId) =>
                 get()
-                    .comments.filter((c) => c.articleId === articleId)
-                    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()),
-
+                    .comments
+                    .filter((c) => c.articleId === articleId)
+                    .sort((a, b) => +new Date(b.createdAt) - +new Date(a.createdAt)),
             reset: () => set({ comments: [] }),
         }),
         { name: "comments", storage: createJSONStorage(() => localStorage) }
