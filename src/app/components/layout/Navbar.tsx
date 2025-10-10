@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/app/store/authStore";
 import { useEffect, useState } from "react";
-import { Menu, X, Moon, Sun, LogOut, User, FileText } from "lucide-react";
+import { Menu, X, Moon, Sun, LogOut, User, FileText, ChartArea } from "lucide-react";
 import { useTheme } from "@/app/context/ThemeContext";
 
 export const Navbar = () => {
@@ -65,6 +65,11 @@ export const Navbar = () => {
                 >
                   <FileText className="w-4 h-4" />
                   Articles
+                </Link>
+
+                <Link href="/pages/stats" className="flex items-center gap-2 px-4 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 font-medium transition-colors">
+                  <ChartArea className="w-4 h-4" />
+                  Stats
                 </Link>
 
                 {user.role === "admin" && (
@@ -150,6 +155,11 @@ export const Navbar = () => {
                 >
                   <FileText className="w-4 h-4" />
                   Articles
+                </Link>
+
+                <Link href="/pages/stats" className="flex items-center gap-2 px-4 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 font-medium transition-colors">
+                  <ChartArea className="w-4 h-4" />
+                  Stats
                 </Link>
 
                 {user.role === "admin" && (
