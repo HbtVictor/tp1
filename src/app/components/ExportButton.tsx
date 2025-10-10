@@ -49,7 +49,7 @@ export default function ExportButton({
     const variantClasses = {
         primary: 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl',
         secondary: 'bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600',
-        ghost: 'bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300'
+        ghost: 'bg-transparent hover:bg-white hover:text-black dark:hover:bg-gray-800 text-white dark:text-gray-300'
     };
 
     const sizeClasses = {
