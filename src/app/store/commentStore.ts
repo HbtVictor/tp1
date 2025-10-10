@@ -1,6 +1,7 @@
 // src/app/store/commentStore.ts
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
+import type { Comment } from "@/app/lib/types";
 
 type CommentState = {
     comments: Comment[];
