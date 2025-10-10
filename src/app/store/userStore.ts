@@ -1,8 +1,13 @@
 // src/app/store/userStore.ts
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import { User } from "@/app/lib/types";
+import type { User } from "@/app/lib/types";
 import { mockUsers } from "@/app/lib/mockData";
+
+const generateId = () =>
+  (typeof crypto !== "undefined" && crypto.randomUUID)
+    ? crypto.randomUUID()
+    : Math.random().toString(36).substring(2, 10);
 
 interface UserState {
   users: User[];
@@ -18,7 +23,8 @@ export const useUserStore = create<UserState>()(
   persist(
     (set, get) => ({
       users: mockUsers,
-      currentUserId: mockUsers[0].id,
+      currentUserId: mockUsers[0]?.id ?? "",
+
       setCurrentUser: (id) => set({ currentUserId: id }),
 
       addUser: (user) =>
@@ -27,10 +33,10 @@ export const useUserStore = create<UserState>()(
             ...state.users,
             {
               ...user,
-              id: crypto.randomUUID(),
+              id: generateId(),
               role: "user",
-              pp: "empty",
-              sujet: user.sujet ?? "empty",
+              pp: user.pp || "",
+              sujet: user.sujet ?? "",
             },
           ],
         })),
@@ -49,14 +55,18 @@ export const useUserStore = create<UserState>()(
 
       getUserByEmail: (email) => get().users.find((u) => u.email === email),
     }),
+
     {
       name: "user-storage",
-      // ✅ Empêche Zustand d’utiliser localStorage côté serveur
+      version: 1,
+      // ✅ Ajout d’un système de migration simple et sûr
+      migrate: (persistedState: any, version) => {
+        console.log("Migrating user-store from version", version);
+        // Ici tu pourrais adapter des champs si besoin (ex: renommage)
+        return persistedState; // on garde les données telles quelles
+      },
       storage: createJSONStorage(() => {
-        if (typeof window !== "undefined") {
-          return localStorage;
-        }
-        // Return a no-op storage for SSR
+        if (typeof window !== "undefined") return localStorage;
         return {
           getItem: () => null,
           setItem: () => {},
