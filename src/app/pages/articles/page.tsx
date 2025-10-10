@@ -26,12 +26,12 @@ export default function ArticlesPage() {
         let list = byTitle
             ? articles.filter(a => a.title.toLowerCase().includes(byTitle))
             : articles.slice();
-        
-        // ✅ Filtre "Mes articles" - AJOUTÉ
+
+        // Filtre "Mes articles"
         if (mineOnly && currentUserId) {
             list = list.filter(a => a.authorId === currentUserId);
         }
-        
+
         list.sort((a, b) => {
             const da = +new Date(a.createdAt);
             const db = +new Date(b.createdAt);
@@ -43,7 +43,9 @@ export default function ArticlesPage() {
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8 px-4 transition-colors">
             <div className="max-w-6xl mx-auto">
-                <ArticlesHeader count={filtered.length} />
+                {/* ✅ Passage des articles filtrés pour l'export */}
+                <ArticlesHeader count={filtered.length} articles={filtered} />
+
                 <ArticlesFilters
                     query={query}
                     onQuery={setQuery}
