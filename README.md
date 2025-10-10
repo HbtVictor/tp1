@@ -16,7 +16,6 @@ Le but de ce TP est de concevoir une application de gestion de contenu permettan
 🌙 Mode clair / sombre automatique
 
 💾 Persistance des données via Zustand (localStorage)
-
 🧭 Navigation fluide avec Next.js App Router
 
 🧱 Composants modulaires et design responsive moderne
