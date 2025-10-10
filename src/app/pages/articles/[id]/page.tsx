@@ -116,17 +116,22 @@ export default function ArticleDetail() {
                         <div className="bg-gray-50 dark:bg-gray-700/50 px-8 md:px-12 py-6 border-t border-gray-200 dark:border-gray-700">
                             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                                 <div className="flex items-center gap-3">
-                                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-lg shadow-lg">
-                                        {(author?.username ?? 'I')[0].toUpperCase()}
-                                    </div>
-                                    <div>
-                                        <p className="font-semibold text-gray-900 dark:text-white">
-                                            {author?.username ?? 'Inconnu'}
-                                        </p>
-                                        <p className="text-sm text-gray-500 dark:text-gray-400">
-                                            Auteur
-                                        </p>
-                                    </div>
+                                    <Link
+                                        href={`/pages/users/${author.id}`}
+                                        className="flex items-center gap-3 hover:bg-gray-100 dark:hover:bg-gray-800/50 p-2 rounded-lg transition-colors"
+                                    >
+                                        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                                            {(author?.username ?? 'I')[0].toUpperCase()}
+                                        </div>
+                                        <div>
+                                            <p className="font-semibold text-gray-900 dark:text-white">
+                                                {author?.username ?? 'Inconnu'}
+                                            </p>
+                                            <p className="text-sm text-gray-500 dark:text-gray-400">
+                                                Auteur
+                                            </p>
+                                        </div>
+                                    </Link>
                                 </div>
 
                                 <Link
