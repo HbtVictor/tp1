@@ -9,26 +9,28 @@ import type { User } from "@/app/lib/types";
 
 export default function UserCard() {
   const authUser = useAuthStore((s) => s.user);
+  const setAuthUser = useAuthStore((s) => s.setUser); // ✅ ajout ici
   const { users, updateUser } = useUserStore();
   const [mounted, setMounted] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
 
-  // on évite le flash SSR
   useEffect(() => setMounted(true), []);
   if (!mounted) return null;
 
   if (!authUser) return null; // pas connecté
 
-  // récupère le user courant depuis le store (réactif)
   const currentUser = users.find((u) => u.id === authUser.id);
   if (!currentUser) return null;
 
   const handleSave = (updatedUser: User) => {
+    // ✅ 1. Met à jour dans userStore
     updateUser(currentUser.id, updatedUser);
+
+    // ✅ 2. Met à jour dans authStore si c'est l'utilisateur connecté
+    setAuthUser({ ...authUser, ...updatedUser });
+
     setShowEdit(false);
   };
-
-  const isCurrentUser = true;
 
   return (
     <div className="min-h-screen flex items-start justify-center bg-gray-50 dark:bg-gray-900 py-12 px-4 transition-colors">
@@ -48,15 +50,13 @@ export default function UserCard() {
             )}
           </div>
 
-          {isCurrentUser && (
-            <button
-              className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-              onClick={() => setShowEdit(true)}
-              aria-label="Modifier le profil"
-            >
-              <Settings className="w-5 h-5 text-gray-600 dark:text-gray-300" />
-            </button>
-          )}
+          <button
+            className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            onClick={() => setShowEdit(true)}
+            aria-label="Modifier le profil"
+          >
+            <Settings className="w-5 h-5 text-gray-600 dark:text-gray-300" />
+          </button>
         </div>
 
         <div className="text-center mb-6">
