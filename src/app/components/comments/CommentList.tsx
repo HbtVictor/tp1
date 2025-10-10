@@ -2,8 +2,8 @@
 'use client';
 
 import { Trash2, MessageCircle } from 'lucide-react';
-import { useCommentStore } from '../store/commentStore';
-import { useUserStore } from '../store/userStore';
+import { useCommentStore } from '../../store/commentStore';
+import { useUserStore } from '../../store/userStore';
 
 interface CommentListProps {
     articleId: string;
