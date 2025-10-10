@@ -3,6 +3,7 @@
 import StatsCards from "@/app/components/stats/StatsCards";
 import UsersByRolePie from "@/app/components/stats/charts/UsersByRolePie";
 import ArticlesByMonthBar from "@/app/components/stats/charts/ArticlesByMonthBar";
+import TopAuthorsBarChart from "@/app/components/stats/charts/TopAuthorsBarChart";
 
 export default function StatsPage() {
   return (
@@ -17,6 +18,10 @@ export default function StatsPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <UsersByRolePie />
           <ArticlesByMonthBar />
+        </div>
+
+        <div className="grid grid-cols-1">
+          <TopAuthorsBarChart />
         </div>
       </div>
     </div>
