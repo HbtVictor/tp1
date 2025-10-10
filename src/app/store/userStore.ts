@@ -59,11 +59,21 @@ export const useUserStore = create<UserState>()(
     {
       name: "user-storage",
       version: 1,
-      // ✅ Ajout d’un système de migration simple et sûr
-      migrate: (persistedState: any, version) => {
-        console.log("Migrating user-store from version", version);
-        // Ici tu pourrais adapter des champs si besoin (ex: renommage)
-        return persistedState; // on garde les données telles quelles
+      migrate: (persistedState: unknown, version: number): Pick<UserState, "users" | "currentUserId"> => {
+        console.log("🧩 Migrating user-store from version", version);
+
+        if (typeof persistedState === "object" && persistedState !== null) {
+          const state = persistedState as Partial<UserState>;
+          return {
+            users: state.users ?? mockUsers,
+            currentUserId: state.currentUserId ?? (mockUsers[0]?.id ?? ""),
+          };
+        }
+
+        return {
+          users: mockUsers,
+          currentUserId: mockUsers[0]?.id ?? "",
+        };
       },
       storage: createJSONStorage(() => {
         if (typeof window !== "undefined") return localStorage;
