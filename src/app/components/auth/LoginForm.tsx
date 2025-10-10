@@ -114,7 +114,7 @@ export const LoginForm = () => {
 
       {/* Footer Note */}
       <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-6">
-        En vous connectant, vous acceptez nos conditions d'utilisation
+        En vous connectant, vous acceptez nos conditions d&apos;utilisation
       </p>
     </div>
   );

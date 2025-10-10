@@ -13,7 +13,7 @@ export function ArticleNotFound() {
                         <AlertCircle className="w-8 h-8 text-red-600 dark:text-red-400" />
                     </div>
                     <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Article introuvable</h1>
-                    <p className="text-gray-600 dark:text-gray-400 mb-6">Cet article n'existe pas ou a été supprimé.</p>
+                    <p className="text-gray-600 dark:text-gray-400 mb-6">Cet article n&apos;existe pas ou a été supprimé.</p>
                     <button onClick={() => router.back()} className="inline-flex items-center gap-2 px-6 py-3 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-900 dark:text-white rounded-xl">
                         <ArrowLeft className="w-4 h-4" /> Retour
                     </button>

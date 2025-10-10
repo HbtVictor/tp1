@@ -149,7 +149,7 @@ export default function UsersList({ users }: UsersListProps) {
               Aucun utilisateur
             </h3>
             <p className="text-gray-600 dark:text-gray-400">
-              Il n'y a pas encore d'utilisateurs inscrits.
+              Il n&apos;y a pas encore d&apos;utilisateurs inscrits.
             </p>
           </div>
         )}
