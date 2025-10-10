@@ -1,4 +1,3 @@
-// src/app/pages/articles/[id]/page.tsx
 'use client';
 
 import { useUserStore } from '@/app/store/userStore';
@@ -20,8 +19,9 @@ export default function ArticleDetail() {
     const { article, author, wordCount, readingTime } = useArticleDetail();
     const currentUserId = useUserStore(s => s.currentUserId);
     const currentUser   = useUserStore(s => s.users.find(u => u.id === currentUserId));
-    const canEdit = article.authorId === currentUserId || currentUser?.role === 'admin';
 
+    // ✅ Vérifie avant d'accéder à article
+    const canEdit = article && (article.authorId === currentUserId || currentUser?.role === 'admin');
 
     if (!article) return <ArticleNotFound />;
 
@@ -46,7 +46,6 @@ export default function ArticleDetail() {
                     </div>
                 }
             />
-
 
             <div className="py-12 px-4">
                 <div className="max-w-4xl mx-auto space-y-8">
