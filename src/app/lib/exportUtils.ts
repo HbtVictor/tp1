@@ -10,6 +10,9 @@ export function toJSON(articles: Article | Article[]): string {
     return JSON.stringify(articles, null, 2);
 }
 
+export const exportOne = (a: Article, f: ExportFormat) =>
+    exportArticles(a, f, 'single');
+
 /**
  * Convertit des articles en CSV
  */
