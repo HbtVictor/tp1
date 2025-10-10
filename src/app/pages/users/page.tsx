@@ -1,11 +1,14 @@
-// src/app/users/page.tsx
-import { mockUsers } from "../../lib/mockData";
-import UsersList from "../../components/users/UserList"; // <-- importe ton composant
+"use client";
+
+import { useUserStore } from "@/app/store/userStore";
+import UsersList from "@/app/components/users/UserList";
 
 export default function UsersPage() {
+  const users = useUserStore((s) => s.users); // ✅ Store Zustand persisté
+
   return (
-    <main className="">
-      <UsersList users={mockUsers} />
+    <main>
+      <UsersList users={users} />
     </main>
   );
 }

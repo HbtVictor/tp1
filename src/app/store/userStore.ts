@@ -1,12 +1,12 @@
 // src/app/store/userStore.ts
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
 import { User } from "@/app/lib/types";
 import { mockUsers } from "@/app/lib/mockData";
 
 interface UserState {
   users: User[];
-  currentUserId: string; // <-- nouvel état
+  currentUserId: string;
   setCurrentUser: (id: string) => void;
   addUser: (user: Omit<User, "id" | "role">) => void;
   updateUser: (id: string, updated: Partial<User>) => void;
@@ -18,7 +18,7 @@ export const useUserStore = create<UserState>()(
   persist(
     (set, get) => ({
       users: mockUsers,
-      currentUserId: mockUsers[0].id, // par défaut l’admin
+      currentUserId: mockUsers[0].id,
       setCurrentUser: (id) => set({ currentUserId: id }),
 
       addUser: (user) =>
@@ -30,7 +30,7 @@ export const useUserStore = create<UserState>()(
               id: crypto.randomUUID(),
               role: "user",
               pp: "empty",
-              sujet: user.sujet ?? "empty", // ✅ défaut si manquant
+              sujet: user.sujet ?? "empty",
             },
           ],
         })),
@@ -49,6 +49,20 @@ export const useUserStore = create<UserState>()(
 
       getUserByEmail: (email) => get().users.find((u) => u.email === email),
     }),
-    { name: "user-storage" }
+    {
+      name: "user-storage",
+      // ✅ Empêche Zustand d’utiliser localStorage côté serveur
+      storage: createJSONStorage(() => {
+        if (typeof window !== "undefined") {
+          return localStorage;
+        }
+        // Return a no-op storage for SSR
+        return {
+          getItem: () => null,
+          setItem: () => {},
+          removeItem: () => {},
+        };
+      }),
+    }
   )
 );
